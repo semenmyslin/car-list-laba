@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp">
+
+    <Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:pointerIcon="alias"
+        android:navigationIcon="@drawable/ic_back"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Редактирование"
+            android:id="@+id/addCarButton"
+            android:layout_gravity="center" />
+    </Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Бренд"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    tools:text="Бренд:" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/brandText"
+                    android:layout_marginStart="16dp"
+                    tools:text="Lada" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Модель"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    tools:text="Модель:" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:id="@+id/modelText"
+                    tools:text="Priora" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Год :"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    tools:text="Год:" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:id="@+id/yearText"
+                    tools:text="2002" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Описание :"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                tools:text="Описание:" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:singleLine="false"
+                android:id="@+id/descText"
+                android:layout_marginTop="16dp"
+                tools:text="Новая генерация Audi A1 предстала перед мировой общественностью 18 июня 2018 года. Новинка является полноценным вторым поколением, а не очередным плановым рестайлингом. Производитель применил новую версию фирменной модульной платформы, изменил силовую линейку, полностью убрал агрегаты на тяжелом топливе, перекроил интерьер и кардинально переработал дизайн. В глаза бросаются агрессивные угловатые фары головного освещения с затемненной оптикой и потрясающими секциями светодиодных дневных ходовых огней. Между передним бампером и капотом появилась небольшая вентиляционная щель, а сама решетка радиатора получила несколько иное оформление. Она сохранила свою пятиугольную форму, но вместо традиционных тонких ребер, она щеголяет пластиковой сеткой с крупными шестиугольными ячейками. По бокам от нее можно увидеть рельефные воздухозаборники, оформленные в похожем стиле. Что касается кормы, то она также получилась довольно интересной. Хочется отметить эффектные стоп-сигналы с полностью светодиодной начинкой, небольшой спойлер на пятой двери и символический диффузор на бампере. В общем и целом, модель выглядит намного интереснее и агрессивнее своего предшественника." />
+
+
+            <Button
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:background="#4CAF50"
+                android:enabled="true"
+                android:text="Сохранить изменения"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
