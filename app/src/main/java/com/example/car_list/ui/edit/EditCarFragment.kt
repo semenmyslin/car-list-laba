@@ -158,6 +158,7 @@ class EditCarFragment : MvpAppCompatFragment(R.layout.fragment_car_edit), EditCa
                     && modelText.text.isNotBlank()
                     && yearText.text.isNotBlank()
                     && descText.text.isNotBlank()
+                    && typeEngineText.text.isNotBlank()
                     && isImageSrcNotEmpty
         }
 
