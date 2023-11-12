@@ -103,6 +103,8 @@
 
                 <EditText
                     android:id="@+id/yearText"
+                    android:inputType="number"
+                    android:digits="0123456789"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"

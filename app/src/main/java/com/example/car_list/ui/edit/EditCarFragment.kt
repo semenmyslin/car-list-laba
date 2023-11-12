@@ -63,7 +63,6 @@ class EditCarFragment : MvpAppCompatFragment(R.layout.fragment_car_edit), EditCa
         with(binding) {
             root.addSystemTopAndBottomPadding()
 
-
             car?.let {
                 brandText.text = SpannableStringBuilder(it.brandName)
                 modelText.text = SpannableStringBuilder(it.modelName)
