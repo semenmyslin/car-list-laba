@@ -24,10 +24,6 @@ class DetailCarFragment : MvpAppCompatFragment(R.layout.fragment_detail_car), De
         get() = arguments?.getInt("index")
 
 
-
-
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUi()
@@ -37,14 +33,14 @@ class DetailCarFragment : MvpAppCompatFragment(R.layout.fragment_detail_car), De
     private fun initUi() {
         with(binding) {
             root.addSystemTopAndBottomPadding()
-            val car
-                    =(activity as LaunchActivity).getCar(index?:0)
+            val car = (activity as LaunchActivity).getCar(index ?: 0)
             car.let {
                 brandText.text = it.brandName
                 modelText.text = it.modelName
                 Glide.with(requireContext()).load(it.image).into(image)
                 yearText.text = it.year.toString()
                 descText.text = it.desc
+                typeEngineText.text = it.typeEngine
             }
 
             toolbar.setNavigationOnClickListener {
@@ -56,7 +52,7 @@ class DetailCarFragment : MvpAppCompatFragment(R.layout.fragment_detail_car), De
                 val activityL = activity as LaunchActivity
                 car.let {
                     activityL.supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, EditCarFragment.create(index = index ?: 0)).addToBackStack("list")
+                        .replace(R.id.container, EditCarFragment.create(index = index ?: 0, isEditMode = true)).addToBackStack("list")
                         .commit()
                 }
 

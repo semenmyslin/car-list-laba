@@ -8,6 +8,7 @@ import com.example.car_list.data.Car
 import com.example.car_list.ui.LaunchActivity
 import com.example.car_list.ui.addSystemTopAndBottomPadding
 import com.example.car_list.ui.detail.DetailCarFragment
+import com.example.car_list.ui.edit.EditCarFragment
 import com.example.car_list_laba.R
 import com.example.car_list_laba.databinding.FragmentMainListBinding
 import moxy.MvpAppCompatFragment
@@ -20,7 +21,7 @@ class MainFragment : MvpAppCompatFragment(R.layout.fragment_main_list), MainView
 
     private val binding: FragmentMainListBinding by viewBinding()
 
-    private val carAdapter by lazy { CarAdapter(::openCarFragment,::removeCar) }
+    private val carAdapter by lazy { CarAdapter(::openCarFragment, ::removeCar) }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,12 +38,15 @@ class MainFragment : MvpAppCompatFragment(R.layout.fragment_main_list), MainView
         }
     }
 
-    private fun removeCar(index : Int) {
+    private fun removeCar(index: Int) {
         (activity as LaunchActivity).deleteCar(index)
     }
 
     override fun addCar(car: Car) {
-        carAdapter.addCar(car)
+        val activityL = activity as LaunchActivity
+        activityL.supportFragmentManager.beginTransaction()
+            .replace(R.id.container, EditCarFragment.create(null,false)).addToBackStack("list")
+            .commit()
     }
 
     fun openCarFragment(index: Int) {

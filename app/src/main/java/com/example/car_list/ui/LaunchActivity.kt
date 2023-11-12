@@ -81,6 +81,8 @@ class LaunchActivity : AppCompatActivity() {
         listCar.apply { set(index, car) }.toMutableList()
     }
 
+    fun addCar(car: Car) = listCar.add(car)
+
     fun getCar(index: Int) = listCar[index]
 
     fun getAllCars() = listCar
