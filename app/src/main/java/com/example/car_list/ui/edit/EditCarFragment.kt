@@ -3,6 +3,7 @@ package com.example.car_list.ui.edit
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.view.View
+import androidx.core.widget.addTextChangedListener
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.car_list.data.Car
 import com.example.car_list.ui.LaunchActivity
@@ -21,8 +22,11 @@ class EditCarFragment : MvpAppCompatFragment(R.layout.fragment_car_edit), EditCa
 
     private val binding: FragmentCarEditBinding by viewBinding()
 
+    private val index
+        get() = arguments?.getInt(ARG_INDEX)
+
     private val car
-        get() = arguments?.getParcelable<Car>(ARG_CAR)
+        get() = (activity as LaunchActivity).getCar(index ?: 0)
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,6 +45,42 @@ class EditCarFragment : MvpAppCompatFragment(R.layout.fragment_car_edit), EditCa
                 descText.text = SpannableStringBuilder(it.desc)
             }
 
+
+            brandText.addTextChangedListener {
+                checkValidForm()
+            }
+
+            modelText.addTextChangedListener {
+                checkValidForm()
+            }
+
+            yearText.addTextChangedListener {
+                checkValidForm()
+            }
+
+
+            descText.addTextChangedListener {
+                checkValidForm()
+            }
+
+            editCarButton.setOnClickListener {
+                if (index != null) {
+                    val activityL = activity as LaunchActivity
+                    (activity as LaunchActivity).editCar(
+                        car.copy(
+                            brandName = brandText.text.toString(),
+                            year = yearText.text.toString().toLong(),
+                            desc = descText.text.toString(),
+                            modelName = modelText.text.toString()
+
+                        ), index!!
+                    )
+                    activityL.supportFragmentManager.popBackStack()
+                }
+            }
+
+
+
             toolbar.setNavigationOnClickListener {
                 val activityL = activity as LaunchActivity
                 activityL.supportFragmentManager.popBackStack()
@@ -50,15 +90,25 @@ class EditCarFragment : MvpAppCompatFragment(R.layout.fragment_car_edit), EditCa
 
     }
 
+    private fun checkValidForm() {
+        with(binding) {
+            editCarButton.isEnabled = brandText.text.isNotBlank()
+                    && modelText.text.isNotBlank()
+                    && yearText.text.isNotBlank()
+                    && descText.text.isNotBlank()
+        }
+
+    }
+
 
     companion object {
 
-        const val ARG_CAR = "car"
+        const val ARG_INDEX = "index"
 
-        fun create(car: Car): EditCarFragment {
+        fun create(index: Int): EditCarFragment {
             val fragment = EditCarFragment()
             val args = Bundle()
-            args.putParcelable(ARG_CAR, car)
+            args.putInt(ARG_INDEX, index)
             fragment.arguments = args
             return fragment
         }

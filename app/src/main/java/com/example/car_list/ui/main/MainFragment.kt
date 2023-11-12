@@ -20,7 +20,7 @@ class MainFragment : MvpAppCompatFragment(R.layout.fragment_main_list), MainView
 
     private val binding: FragmentMainListBinding by viewBinding()
 
-    private val carAdapter by lazy { CarAdapter(::openCarFragment) }
+    private val carAdapter by lazy { CarAdapter(::openCarFragment,::removeCar) }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,22 +37,27 @@ class MainFragment : MvpAppCompatFragment(R.layout.fragment_main_list), MainView
         }
     }
 
+    private fun removeCar(index : Int) {
+        (activity as LaunchActivity).deleteCar(index)
+    }
+
     override fun addCar(car: Car) {
         carAdapter.addCar(car)
     }
 
-    fun openCarFragment(car: Car) {
+    fun openCarFragment(index: Int) {
         val activityL = activity as LaunchActivity
-        activityL.supportFragmentManager.beginTransaction().hide(this).add(R.id.container,DetailCarFragment.create(car)).addToBackStack("list")
+        activityL.supportFragmentManager.beginTransaction()
+            .replace(R.id.container, DetailCarFragment.create(index)).addToBackStack("list")
             .commit()
     }
 
-    override fun showListCars(cars: List<Car>) {
+    override fun showListCars() {
         with(binding) {
             recycler.run {
                 adapter = this@MainFragment.carAdapter
                 layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-                carAdapter.addALL(cars)
+                carAdapter.addALL((activity as LaunchActivity).getAllCars())
             }
         }
     }

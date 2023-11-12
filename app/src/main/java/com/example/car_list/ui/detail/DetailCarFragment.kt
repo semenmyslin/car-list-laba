@@ -20,8 +20,12 @@ class DetailCarFragment : MvpAppCompatFragment(R.layout.fragment_detail_car), De
 
     private val binding: FragmentDetailCarBinding by viewBinding()
 
-    private val car
-        get() = arguments?.getParcelable<Car>(ARG_CAR)
+    private val index
+        get() = arguments?.getInt("index")
+
+
+
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,7 +37,9 @@ class DetailCarFragment : MvpAppCompatFragment(R.layout.fragment_detail_car), De
     private fun initUi() {
         with(binding) {
             root.addSystemTopAndBottomPadding()
-            car?.let {
+            val car
+                    =(activity as LaunchActivity).getCar(index?:0)
+            car.let {
                 brandText.text = it.brandName
                 modelText.text = it.modelName
                 Glide.with(requireContext()).load(it.image).into(image)
@@ -48,9 +54,9 @@ class DetailCarFragment : MvpAppCompatFragment(R.layout.fragment_detail_car), De
 
             editCarButton.setOnClickListener {
                 val activityL = activity as LaunchActivity
-                car?.let {
-                    activityL.supportFragmentManager.beginTransaction().hide(this@DetailCarFragment)
-                        .add(R.id.container, EditCarFragment.create(it)).addToBackStack("list")
+                car.let {
+                    activityL.supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, EditCarFragment.create(index = index ?: 0)).addToBackStack("list")
                         .commit()
                 }
 
@@ -63,12 +69,12 @@ class DetailCarFragment : MvpAppCompatFragment(R.layout.fragment_detail_car), De
 
     companion object {
 
-        const val ARG_CAR = "car"
+        private const val ARG_INDEX = "index"
 
-        fun create(car: Car): DetailCarFragment {
+        fun create(index: Int): DetailCarFragment {
             val fragment = DetailCarFragment()
             val args = Bundle()
-            args.putParcelable(ARG_CAR, car)
+            args.putInt(ARG_INDEX, index)
             fragment.arguments = args
             return fragment
         }

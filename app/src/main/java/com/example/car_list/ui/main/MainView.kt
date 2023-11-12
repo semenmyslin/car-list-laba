@@ -7,7 +7,7 @@ import moxy.viewstate.strategy.alias.OneExecution
 interface MainView : MvpView {
 
     @OneExecution
-    fun showListCars(cars: List<Car>)
+    fun showListCars()
 
     @OneExecution
     fun addCar(car : Car)

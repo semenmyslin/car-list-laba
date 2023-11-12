@@ -8,7 +8,8 @@ import com.example.car_list.data.Car
 import com.example.car_list_laba.databinding.ItemCarBinding
 
 class CarAdapter(
-    private val onClick: (Car) -> Unit
+    private val onClick: (Int) -> Unit,
+    private val onRemove: (Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val cars: MutableList<Car> = mutableListOf()
@@ -54,11 +55,12 @@ class CarAdapter(
 
                 deleteIcon.setOnClickListener {
                     cars.remove(cars[position])
+                    onRemove.invoke(position)
                     notifyDataSetChanged()
                 }
 
                 root.setOnClickListener {
-                    onClick.invoke(cars[position])
+                    onClick.invoke(position)
                 }
             }
         }
